@@ -23,21 +23,33 @@ class Bot {
 
   public function sendMessage($chat_id, $text, $reply = 0, $markup = []) {
     $_ = $this->request('sendMessage', [
-        'chat_id' => $chat_id,
-        'text' => $text,
-        'reply_to_message_id' => $reply,
-        'reply_markup' => $markup
+      'chat_id' => $chat_id,
+      'text' => $text,
+      'reply_to_message_id' => $reply,
+      'reply_markup' => $markup
     ]);
-
     return json_decode($_, true)['result']['message_id'];
   }
 
-  public function editMessage($chat_id, $message_id, $text, $markup) {
+  public function editMessageText($chat_id, $message_id, $text, $markup) {
     $_ = $this->request('editMessageText', [
-        'chat_id' => $chat_id,
-        'message_id' => $message_id,
-        'text' => $text,
-        'reply_markup' => $markup
+      'chat_id' => $chat_id,
+      'message_id' => $message_id,
+      'text' => $text,
+      'reply_markup' => $markup
     ]);
+    unset($_);
+  }
+
+  public function sendVenue($chat_id, $latitude, $longitude, $title, $address, $reply = 0) {
+    $_ = $this->request('sendVenue', [
+      'chat_id' => $chat_id,
+      'latitude' => $latitude,
+      'longitude' => $longitude,
+      'title' => $title,
+      'address' => $address,
+      'reply_to_message_id' => $reply
+    ]);
+    unset($_);
   }
 }
